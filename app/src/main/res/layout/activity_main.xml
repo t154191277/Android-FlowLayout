@@ -4,29 +4,10 @@
      tools:context=".MainActivity">
 
     <wmlove.flowlayout.FlowLayout
+        android:id="@+id/flowlayout"
+        android:background="#E5E5F5"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
-
-        <Button
-            android:text="Hello world"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <Button
-            android:text="Hello world"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <Button
-            android:text="Hello"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <Button
-            android:text="Hello"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
     </wmlove.flowlayout.FlowLayout>
 
 </RelativeLayout>

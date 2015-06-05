@@ -30,8 +30,8 @@ public class FlowLayout extends ViewGroup{
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int sizeWidth = MeasureSpec.getSize(widthMeasureSpec);
         int modeWidth = MeasureSpec.getMode(widthMeasureSpec);
-        int sizeHeight = MeasureSpec.getSize(widthMeasureSpec);
-        int modeHeight = MeasureSpec.getMode(widthMeasureSpec);
+        int sizeHeight = MeasureSpec.getSize(heightMeasureSpec);
+        int modeHeight = MeasureSpec.getMode(heightMeasureSpec);
 
 
         int width = 0;
@@ -47,8 +47,8 @@ public class FlowLayout extends ViewGroup{
             measureChild(child,widthMeasureSpec,heightMeasureSpec);
             MarginLayoutParams lp = (MarginLayoutParams) child.getLayoutParams();
 
-            int childWidth = child.getWidth()+lp.leftMargin+lp.rightMargin;
-            int childHeight = child.getHeight()+lp.topMargin+lp.bottomMargin;
+            int childWidth = child.getMeasuredWidth()+lp.leftMargin+lp.rightMargin;
+            int childHeight = child.getMeasuredHeight()+lp.topMargin+lp.bottomMargin;
 
             if(lineWidth + childWidth > sizeWidth){
                 width = Math.max(width,lineWidth);
@@ -60,7 +60,7 @@ public class FlowLayout extends ViewGroup{
                 lineHeight = Math.max(lineHeight,childHeight);
             }
 
-            if(i == cCount-1 ){
+            if(i == cCount - 1){
                 width = Math.max(width,lineWidth);
                 height += lineHeight;
             }
@@ -69,8 +69,8 @@ public class FlowLayout extends ViewGroup{
         Log.i("TAG","sizeWidth="+sizeWidth);
         Log.i("TAG","sizeHeight="+sizeHeight);
 
-        setMeasuredDimension((modeWidth == MeasureSpec.EXACTLY) ? sizeWidth : width + getMeasuredWidth()
-                , (modeHeight == MeasureSpec.EXACTLY) ? sizeHeight : height + getMeasuredHeight());
+        setMeasuredDimension(modeWidth == MeasureSpec.EXACTLY ? sizeWidth : width + getPaddingLeft() +getPaddingRight()
+                , modeHeight == MeasureSpec.EXACTLY ? sizeHeight : height +  getPaddingLeft() +getPaddingRight());
     }
 
     private List<List<View>> mAllViews = new ArrayList<List<View>>();
@@ -116,11 +116,12 @@ public class FlowLayout extends ViewGroup{
             lineViews.add(child);
         }
 
-        mAllViews.add(lineViews);
         mLineHeight.add(lineHeight);
+        mAllViews.add(lineViews);
 
-        int left = 0;
-        int top = 0;
+
+        int left = getPaddingLeft();
+        int top = getPaddingTop();
 
         int lineNum = mAllViews.size();
 
